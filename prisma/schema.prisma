@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Discussion {
+  id        Int       @id @default(autoincrement())
+  verse     String
+  date      DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  comments  Comment[]
+
+  @@map("discussions")
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String    @unique
+  comments Comment[]
+  isAdmin  Boolean   @default(false)
+
+  @@map("users")
+}
+
+model Comment {
+  id              Int        @id @default(autoincrement())
+  text            String
+  version         String
+  reactions       String[]
+  reports         String[]
+  upvotes         String[]
+  downvotes       String[]
+  author          User       @relation(fields: [authorId], references: [id])
+  authorId        Int
+  discussion      Discussion @relation(fields: [discussionId], references: [id])
+  discussionId    Int
+  parentCommentId Int?
+  parentComment   Comment?   @relation("CommentReplies", fields: [parentCommentId], references: [id])
+  replies         Comment[]  @relation("CommentReplies")
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("comments")
+}
