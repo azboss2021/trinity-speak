@@ -1,13 +1,32 @@
 import Navbar from "@/components/Navbar";
+import VerseOfTheDay from "@/components/VerseOfTheDay";
 
-export default function Home() {
+const HomePage = async () => {
+  const response = await fetch(
+    "https://bible-api.com/john%203:16?translation=kjv",
+    {
+      method: "GET",
+    },
+  );
+  const data = await response.json();
+
   return (
-    <main className="mx-auto max-w-3xl px-4">
-      <Navbar />
+    <main className="">
       <div className="flex flex-col gap-8">
-        <h2></h2>
-        <button className="btn btn-primary">Caleb Wilson</button>
+        <VerseOfTheDay verse={data} />
+        <div className="flex flex-col">
+          <div className="label">
+            <span className="label-text">Discussion</span>
+          </div>
+          <textarea
+            className="textarea textarea-bordered"
+            placeholder="Write your thoughts"
+          />
+        </div>
+        <button className="btn btn-primary">Submit</button>
       </div>
     </main>
   );
-}
+};
+
+export default HomePage;
