@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
 import { getDaySuffix } from "@/lib/utils";
-
-const inter = Inter({ subsets: ["latin"] });
+import { poppins } from "@/lib/fonts";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: `TrinitySpeak - ${
@@ -26,12 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="lofi">
-      <body className={inter.className}>
+    <html lang="en" data-theme="light">
+      <body className={poppins.className}>
         <Toaster />
         <div className="flex flex-col gap-4">
           <Navbar />
           {children}
+          <Footer />
         </div>
       </body>
     </html>

@@ -15,9 +15,9 @@ const RulesExtraInfo = () => {
         ></path>
       </svg>
       <p className="text-sm">
-        <span className="font-semibold">Reminder: </span> Humble yourself—we are
-        all students. You may only submit one original comment per day. Replies
-        are not limited.
+        <span className="font-semibold">Reminder: </span> Please remember we are
+        all students, so humility should be practiced. You may only submit one
+        comment per day. Replies are not limited.
       </p>
     </div>
   );

@@ -29,6 +29,7 @@ model User {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   email    String    @unique
+  image    String
   comments Comment[]
   isAdmin  Boolean   @default(false)
 

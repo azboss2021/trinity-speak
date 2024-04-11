@@ -1,7 +1,9 @@
 "use client";
 
+import { merriweather } from "@/lib/fonts";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaCopy, FaShare } from "react-icons/fa6";
 
 const VerseOfTheDay = () =>
   // {
@@ -60,54 +62,103 @@ const VerseOfTheDay = () =>
 
     if (!verse)
       return (
-        <div className="flex flex-col gap-2">
-          <div className="skeleton h-4 w-16"></div>
-          <div className="skeleton h-16 w-full"></div>
+        <div className="flex flex-col gap-4">
+          <div className="card w-full border">
+            <div className="card-body">
+              <div className="skeleton h-8 w-24" />
+              <div className="skeleton h-40 w-full" />
+              <div className="skeleton h-6 w-full" />
+              <div className="card-actions mt-2 flex w-full items-center justify-center gap-1 md:justify-between">
+                <div className="flex gap-1">
+                  <div className="skeleton h-12 w-16 md:w-24" />
+                  <div className="skeleton h-12 w-16 md:w-24" />
+                </div>
+                <div className="skeleton h-12 w-24 md:w-32" />
+              </div>
+            </div>
+          </div>
         </div>
       );
 
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col">
-          <select
-            className="select select-bordered select-sm"
-            value={translation}
-            onChange={(e) => setTranslation(e.target.value)}
-          >
-            <option disabled>Choose Translation</option>
-            <option value="asv">American Standard Version (1901)</option>
-            <option value="bbe">Bible in Basic English</option>
-            <option value="darby">Darby Bible</option>
-            <option value="dra">Douay-Rheims 1899 American Edition</option>
-            <option value="kjv">King James Version</option>
-            <option value="web">World English Bible</option>
-            <option value="ylt">Young&apos;s Literal Translation</option>
-            <option value="oeb-cw">
-              Open English Bible, Commonwealth Edition
-            </option>
-            <option value="webbe">World English Bible, British Edition</option>
-            <option value="oeb-us">Open English Bible, US Edition</option>
-            <option value="almeida">João Ferreira de Almeida</option>
-          </select>
-        </div>
+        {/* <select
+          className="select select-bordered select-sm"
+          value={translation}
+          onChange={(e) => setTranslation(e.target.value)}
+        >
+          <option disabled>Choose Translation</option>
+          <option value="asv">American Standard Version (1901)</option>
+          <option value="bbe">Bible in Basic English</option>
+          <option value="darby">Darby Bible</option>
+          <option value="dra">Douay-Rheims 1899 American Edition</option>
+          <option value="kjv">King James Version</option>
+          <option value="web">World English Bible</option>
+          <option value="ylt">Young&apos;s Literal Translation</option>
+          <option value="oeb-cw">
+            Open English Bible, Commonwealth Edition
+          </option>
+          <option value="webbe">World English Bible, British Edition</option>
+          <option value="oeb-us">Open English Bible, US Edition</option>
+          <option value="almeida">João Ferreira de Almeida</option>
+        </select> */}
 
-        <div className="card w-full border bg-base-100">
-          <div className="card-body">
-            <h2 className="text-base font-extrabold md:text-xl">
+        <div className="card w-full border">
+          <div className="card-body p-4 md:p-8">
+            <h2
+              className={`${merriweather.className} text-base font-extrabold md:text-xl`}
+            >
               {verse.reference}
             </h2>
-            <p className="text-xl md:text-3xl">{verse.text}</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-ghost btn-sm">
-                Go To Verse <FaArrowRight />
-              </button>
+
+            <p className={`${merriweather.className} text-xl md:text-3xl`}>
+              {verse.text}
+            </p>
+
+            <select
+              className="select select-bordered select-sm mt-2"
+              value={translation}
+              onChange={(e) => setTranslation(e.target.value)}
+            >
+              <option disabled>Choose Translation</option>
+              <option value="asv">American Standard Version (1901)</option>
+              <option value="bbe">Bible in Basic English</option>
+              <option value="darby">Darby Bible</option>
+              <option value="dra">Douay-Rheims 1899 American Edition</option>
+              <option value="kjv">King James Version</option>
+              <option value="web">World English Bible</option>
+              <option value="ylt">Young&apos;s Literal Translation</option>
+              <option value="oeb-cw">
+                Open English Bible, Commonwealth Edition
+              </option>
+              <option value="webbe">
+                World English Bible, British Edition
+              </option>
+              <option value="oeb-us">Open English Bible, US Edition</option>
+              <option value="almeida">João Ferreira de Almeida</option>
+            </select>
+
+            <div className="card-actions mt-2 flex w-full items-center justify-between gap-1">
+              <div className="flex gap-1">
+                <button className="btn btn-sm md:btn-md">
+                  Copy <FaCopy />
+                </button>
+                <button className="btn btn-primary btn-sm md:btn-md">
+                  Share <FaShare />
+                </button>
+              </div>
+
+              <Link
+                href=""
+                target="_blank"
+                role="button"
+                className="btn btn-ghost btn-sm md:btn-md"
+              >
+                Go To Chapter <FaArrowRight />
+              </Link>
             </div>
           </div>
         </div>
-        {/* <div>
-          <h2 className="">{verse.reference}</h2>
-          <h3 className="text-xl">{verse.text}</h3>
-        </div> */}
       </div>
     );
   };

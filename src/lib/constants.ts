@@ -1,0 +1,1 @@
+export const MAXCHARACTERCOUNT = 1500;
