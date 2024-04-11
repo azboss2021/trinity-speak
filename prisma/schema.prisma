@@ -27,7 +27,7 @@ model Discussion {
 
 model User {
   id       Int       @id @default(autoincrement())
-  name     String
+  name     String    @unique
   email    String    @unique
   comments Comment[]
   isAdmin  Boolean   @default(false)

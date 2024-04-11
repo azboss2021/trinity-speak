@@ -1,29 +1,26 @@
-import Navbar from "@/components/Navbar";
+import Comments from "@/components/Comments";
+import RulesExtraInfo from "@/components/RulesExtraInfo";
 import VerseOfTheDay from "@/components/VerseOfTheDay";
+import { FaPaperPlane } from "react-icons/fa6";
 
 const HomePage = async () => {
-  const response = await fetch(
-    "https://bible-api.com/john%203:16?translation=kjv",
-    {
-      method: "GET",
-    },
-  );
-  const data = await response.json();
-
   return (
-    <main className="">
-      <div className="flex flex-col gap-8">
-        <VerseOfTheDay verse={data} />
-        <div className="flex flex-col">
-          <div className="label">
-            <span className="label-text">Discussion</span>
+    <main className="mx-auto max-w-prose px-4">
+      <div className="flex flex-col gap-4">
+        <VerseOfTheDay />
+        <form className="flex flex-col gap-4">
+          <div className="flex flex-col">
+            <textarea
+              className="textarea textarea-bordered"
+              placeholder="Share your thoughts, stories, prayers, who, why, when, whatever."
+            />
           </div>
-          <textarea
-            className="textarea textarea-bordered"
-            placeholder="Write your thoughts"
-          />
-        </div>
-        <button className="btn btn-primary">Submit</button>
+          <RulesExtraInfo />
+          <button className="btn btn-primary">
+            Submit <FaPaperPlane />
+          </button>
+        </form>
+        <Comments />
       </div>
     </main>
   );
