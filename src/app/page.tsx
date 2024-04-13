@@ -7,11 +7,11 @@ const HomePage = async () => {
   const signedIn = true;
 
   return (
-    <main className="mx-auto max-w-prose px-2 pb-32 md:px-4">
-      <div className="flex flex-col gap-4">
+    <main className="mx-auto w-full max-w-prose px-2 pb-32 md:px-4">
+      <div className="flex w-full flex-col gap-4">
         <VerseOfTheDay />
         {signedIn ? <CommentForm /> : <SignInButton />}
-        <Comments />
+        <Comments signedIn={signedIn} />
       </div>
     </main>
   );

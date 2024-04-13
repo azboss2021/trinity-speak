@@ -9,7 +9,7 @@ const SignInButton = () => {
 
   return (
     <button className="btn btn-primary btn-lg" onClick={handleSignIn}>
-      Sign-in to leave a comment <FaLock />
+      Sign In for Comment Access <FaLock />
     </button>
   );
 };

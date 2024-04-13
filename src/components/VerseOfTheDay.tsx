@@ -64,7 +64,7 @@ const VerseOfTheDay = () =>
       return (
         <div className="flex flex-col gap-4">
           <div className="card w-full border">
-            <div className="card-body">
+            <div className="card-body p-4 md:p-8">
               <div className="skeleton h-8 w-24" />
               <div className="skeleton h-40 w-full" />
               <div className="skeleton h-6 w-full" />
@@ -82,27 +82,6 @@ const VerseOfTheDay = () =>
 
     return (
       <div className="flex flex-col gap-4">
-        {/* <select
-          className="select select-bordered select-sm"
-          value={translation}
-          onChange={(e) => setTranslation(e.target.value)}
-        >
-          <option disabled>Choose Translation</option>
-          <option value="asv">American Standard Version (1901)</option>
-          <option value="bbe">Bible in Basic English</option>
-          <option value="darby">Darby Bible</option>
-          <option value="dra">Douay-Rheims 1899 American Edition</option>
-          <option value="kjv">King James Version</option>
-          <option value="web">World English Bible</option>
-          <option value="ylt">Young&apos;s Literal Translation</option>
-          <option value="oeb-cw">
-            Open English Bible, Commonwealth Edition
-          </option>
-          <option value="webbe">World English Bible, British Edition</option>
-          <option value="oeb-us">Open English Bible, US Edition</option>
-          <option value="almeida">João Ferreira de Almeida</option>
-        </select> */}
-
         <div className="card w-full border">
           <div className="card-body p-4 md:p-8">
             <h2
@@ -116,7 +95,7 @@ const VerseOfTheDay = () =>
             </p>
 
             <select
-              className="select select-bordered select-sm mt-2"
+              className="select select-bordered select-sm mt-2 border-l-0 border-r-0 border-t-0"
               value={translation}
               onChange={(e) => setTranslation(e.target.value)}
             >

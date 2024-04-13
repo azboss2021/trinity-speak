@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="light">
+    <html lang="en" data-theme="winter">
       <body className={poppins.className}>
         <Toaster />
         <div className="flex flex-col gap-4">
