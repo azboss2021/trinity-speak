@@ -3,7 +3,13 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
 import { getDaySuffix } from "@/lib/utils";
-import { poppins } from "@/lib/fonts";
+import {
+  inter,
+  montserrat,
+  open_sans,
+  playfair_display,
+  poppins,
+} from "@/lib/fonts";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -25,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="winter">
-      <body className={poppins.className}>
+    <html lang="en" data-theme="light">
+      <body className={inter.className}>
         <Toaster />
         <div className="flex flex-col gap-4">
           <Navbar />

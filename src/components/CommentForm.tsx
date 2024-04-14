@@ -1,20 +1,19 @@
 "use client";
 
-import { FaPaperPlane } from "react-icons/fa";
+import { FaPaperPlane, FaRegSmile } from "react-icons/fa";
 import RulesExtraInfo from "./RulesExtraInfo";
 import { FaImage } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { merriweather } from "@/lib/fonts";
 import { useState } from "react";
 import { MAXCHARACTERCOUNT } from "@/lib/constants";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 const WarningPercent = 95;
-const CharCountUntilTextOnly = 10;
+const CharCountUntilTextOnly = 9;
 
 const formSchema = z.object({
   comment: z
@@ -54,51 +53,62 @@ const CommentForm = () => {
 
   return (
     <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
-      <RulesExtraInfo />
+      {/* <RulesExtraInfo /> */}
 
       <textarea
-        className={`${merriweather.className} textarea textarea-bordered h-auto w-full resize-none overflow-y-hidden px-4 py-3 leading-relaxed`}
+        className={`textarea textarea-bordered h-auto w-full resize-none break-words px-4 py-3 leading-relaxed`}
         onChange={(e) => setCharacterCount(e.target.value.trim().length)}
-        placeholder="Share your thoughts, stories, prayers, who, why, when, whatever."
+        placeholder="Add a comment..."
+        // placeholder="Share your thoughts, stories, prayers, who, why, when, whatever."
       />
       {errors.comment && <span>{errors.comment.message}</span>}
 
-      <div className="flex w-full items-center gap-2">
-        <button className="btn btn-primary" type="button">
-          Gif <FaImage />
-        </button>
+      <div className="flex w-full items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <button type="button" className="btn btn-sm">
+            Gif <FaImage />
+          </button>
+          <button type="button" className="btn btn-sm">
+            <FaRegSmile />
+          </button>
+        </div>
 
-        <button
-          className="btn btn-primary flex-1"
-          disabled={characterCount > MAXCHARACTERCOUNT || characterCount < 1}
-        >
-          Submit <FaPaperPlane />
-        </button>
+        <div className="flex items-center gap-2">
+          <button type="button" className="btn btn-ghost btn-sm">
+            Cancel
+          </button>
+          <button
+            className="btn btn-primary btn-sm"
+            disabled={characterCount > MAXCHARACTERCOUNT || characterCount < 1}
+          >
+            Comment
+          </button>
 
-        {characterCount > 0 && (
-          <div className="h-[42px] w-[42px]">
-            <CircularProgressbar
-              value={(characterCount / MAXCHARACTERCOUNT) * 100}
-              strokeWidth={
-                characterCount > MAXCHARACTERCOUNT &&
-                characterCount - MAXCHARACTERCOUNT > CharCountUntilTextOnly
-                  ? 0
-                  : 12
-              }
-              className="text-primary"
-              text={`${(characterCount / MAXCHARACTERCOUNT) * 100 > WarningPercent ? -(characterCount - MAXCHARACTERCOUNT) : ""}`}
-              styles={buildStyles({
-                pathColor: `${(characterCount / MAXCHARACTERCOUNT) * 100 >= 100 ? "oklch(var(--er))" : (characterCount / MAXCHARACTERCOUNT) * 100 > WarningPercent && (characterCount / MAXCHARACTERCOUNT) * 100 < 100 ? "oklch(var(--wa))" : "oklch(var(--p))"}`,
-                trailColor: "oklch(var(--b3))",
-                textColor: `${(characterCount / MAXCHARACTERCOUNT) * 100 < 100 ? "oklch(var(--p))" : "oklch(var(--er))"}`,
-                textSize: "42px",
-                backgroundColor: "oklch(var(--b1))",
-              })}
-            />
-          </div>
-          // ${(characterCount / MAXCHARACTERCOUNT) * 100 > 80 && "text-warning"} ${(characterCount / MAXCHARACTERCOUNT) * 100 > 100 && "text-error"}
-          // ${(characterCount / MAXCHARACTERCOUNT) * 100}
-        )}
+          {characterCount > 0 && (
+            <div className="h-[42px] w-[42px]">
+              <CircularProgressbar
+                value={(characterCount / MAXCHARACTERCOUNT) * 100}
+                strokeWidth={
+                  characterCount > MAXCHARACTERCOUNT &&
+                  characterCount - MAXCHARACTERCOUNT > CharCountUntilTextOnly
+                    ? 0
+                    : 12
+                }
+                className="text-primary"
+                text={`${(characterCount / MAXCHARACTERCOUNT) * 100 > WarningPercent ? -(characterCount - MAXCHARACTERCOUNT) : ""}`}
+                styles={buildStyles({
+                  pathColor: `${(characterCount / MAXCHARACTERCOUNT) * 100 >= 100 ? "oklch(var(--er))" : (characterCount / MAXCHARACTERCOUNT) * 100 > WarningPercent && (characterCount / MAXCHARACTERCOUNT) * 100 < 100 ? "oklch(var(--wa))" : "oklch(var(--p))"}`,
+                  trailColor: "oklch(var(--b3))",
+                  textColor: `${(characterCount / MAXCHARACTERCOUNT) * 100 < 100 ? "oklch(var(--bc))" : "oklch(var(--er))"}`,
+                  textSize: "36px",
+                  backgroundColor: "oklch(var(--b1))",
+                })}
+              />
+            </div>
+            // ${(characterCount / MAXCHARACTERCOUNT) * 100 > 80 && "text-warning"} ${(characterCount / MAXCHARACTERCOUNT) * 100 > 100 && "text-error"}
+            // ${(characterCount / MAXCHARACTERCOUNT) * 100}
+          )}
+        </div>
       </div>
     </form>
   );
