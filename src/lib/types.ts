@@ -31,8 +31,8 @@ export interface CommentType {
   discussion: DiscussionType;
   discussionId: number;
   parentCommentId: number | null;
-  parentComment: Comment | null;
-  replies: Comment[];
+  parentComment: CommentType | null; // Adjusted to use CommentType
+  replies: CommentType[]; // Adjusted to use CommentType[]
   createdAt: Date;
   updatedAt: Date;
 }

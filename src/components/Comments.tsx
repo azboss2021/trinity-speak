@@ -3,7 +3,7 @@ import Comment from "./Comment";
 
 const Comments = ({ signedIn }: { signedIn: boolean }) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col">
       {dummyComments.map((comment, index) => (
         <Comment key={index} comment={comment} signedIn={signedIn} />
       ))}

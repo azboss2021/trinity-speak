@@ -85,7 +85,7 @@ const CommentForm = () => {
           </button>
 
           {characterCount > 0 && (
-            <div className="h-[42px] w-[42px]">
+            <div className="h-[28px] w-[28px]">
               <CircularProgressbar
                 value={(characterCount / MAXCHARACTERCOUNT) * 100}
                 strokeWidth={
@@ -100,7 +100,7 @@ const CommentForm = () => {
                   pathColor: `${(characterCount / MAXCHARACTERCOUNT) * 100 >= 100 ? "oklch(var(--er))" : (characterCount / MAXCHARACTERCOUNT) * 100 > WarningPercent && (characterCount / MAXCHARACTERCOUNT) * 100 < 100 ? "oklch(var(--wa))" : "oklch(var(--p))"}`,
                   trailColor: "oklch(var(--b3))",
                   textColor: `${(characterCount / MAXCHARACTERCOUNT) * 100 < 100 ? "oklch(var(--bc))" : "oklch(var(--er))"}`,
-                  textSize: "36px",
+                  textSize: "42px",
                   backgroundColor: "oklch(var(--b1))",
                 })}
               />

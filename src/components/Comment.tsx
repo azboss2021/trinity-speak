@@ -3,8 +3,14 @@
 import { CommentType } from "@/lib/types";
 import { getTimeAgo } from "@/lib/utils";
 import Image from "next/image";
+import { useState } from "react";
 import { FaRegSmile } from "react-icons/fa";
-import { FaFaceSmile, FaReply } from "react-icons/fa6";
+import {
+  FaChevronDown,
+  FaChevronUp,
+  FaFaceSmile,
+  FaReply,
+} from "react-icons/fa6";
 import { IoChatboxOutline } from "react-icons/io5";
 import { MdOutlineAddReaction } from "react-icons/md";
 import { MdChatBubbleOutline } from "react-icons/md";
@@ -22,47 +28,46 @@ const Comment = ({
   comment: CommentType;
   signedIn: boolean;
 }) => {
-  const replyCount = 5;
+  const [showReplies, setShowReplies] = useState(false);
+  const replyCount: number = 5;
+
+  const toggleReplies = () => {
+    setShowReplies((curr) => !curr);
+  };
 
   return (
-    <div className="card w-full rounded-none border-b px-2 py-2 md:py-4">
-      <div className="card-body gap-3 p-0">
+    <div className="card w-full rounded-none px-2 py-2 md:py-4">
+      <div className="card-body gap-1.5 p-0">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-start gap-1.5">
             <Image
               src={comment.author.image}
               alt={comment.author.name}
               width={100}
               height={100}
-              className="h-6 w-6 rounded-full md:h-8 md:w-8"
+              className="h-8 w-8 rounded-full md:h-10 md:w-10"
             />
-            <span className="text-sm font-bold md:text-sm">
-              {comment.author.name}
-            </span>
 
-            <span className="text-xs">({comment.version.toUpperCase()})</span>
+            <div className="flex flex-col gap-0.5">
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm font-semibold">
+                  @{comment.author.name}
+                </span>
 
-            <span className="text-xs text-base-content/60">•</span>
-            <span className="text-xs">{getTimeAgo(comment.createdAt)}</span>
-
-            {/* <span className="badge badge-ghost badge-sm font-semibold">
-              {comment.version.toUpperCase()}
-            </span> */}
+                <span className="text-xs text-base-content/60">
+                  {getTimeAgo(comment.createdAt)}
+                </span>
+              </div>
+              <span className="badge badge-neutral badge-sm text-[10px] font-semibold">
+                {comment.version.toUpperCase()}
+              </span>
+            </div>
           </div>
-          {/* <span className="text-sm">•</span> */}
-          {/* <span className="badge badge-ghost badge-sm font-semibold">
-            {comment.version.toUpperCase()}
-          </span> */}
-          {/* {comment.author.isAdmin ? (
-          <span className="badge badge-secondary gap-2 text-xs">
-            <FaTools />
-          </span>
-        ) : null} */}
         </div>
 
         <div className={`text-sm md:text-base`}>{comment.text}</div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0.5">
           <div className="flex items-center gap-2">
             <div className="flex items-center">
               <button className="btn btn-circle btn-ghost btn-sm -ml-2.5">
@@ -87,9 +92,22 @@ const Comment = ({
             )}
           </div>
 
-          <button className="btn btn-ghost btn-xs -ml-2 w-full justify-start">
-            View {replyCount} More Replies
-          </button>
+          {comment.replies.length > 0 && (
+            <button
+              className="btn btn-ghost btn-xs -ml-2 w-fit justify-start text-primary md:btn-sm md:-ml-3"
+              onClick={toggleReplies}
+            >
+              {showReplies ? (
+                <FaChevronUp size={10} />
+              ) : (
+                <FaChevronDown size={10} />
+              )}
+              <span className="flex items-center gap-1">
+                <>{comment.replies.length}</>
+                <span>{replyCount === 1 ? "reply" : "replies"}</span>
+              </span>
+            </button>
+          )}
         </div>
       </div>
     </div>
