@@ -20,94 +20,124 @@ import {
   PiArrowFatDown,
   PiArrowFatDownFill,
 } from "react-icons/pi";
+import CommentForm from "./CommentForm";
 
 const Comment = ({
   comment,
   signedIn,
+  reply,
 }: {
   comment: CommentType;
   signedIn: boolean;
+  reply: boolean;
 }) => {
   const [showReplies, setShowReplies] = useState(false);
-  const replyCount: number = 5;
+  const [showNewReply, setShowNewReply] = useState(false);
 
   const toggleReplies = () => {
     setShowReplies((curr) => !curr);
   };
 
+  const toggleNewReply = () => {
+    setShowNewReply((curr) => !curr);
+  };
+
   return (
-    <div className="card w-full rounded-none px-2 py-2 md:py-4">
-      <div className="card-body gap-1.5 p-0">
-        <div className="flex items-center justify-between">
-          <div className="flex items-start gap-1.5">
-            <Image
-              src={comment.author.image}
-              alt={comment.author.name}
-              width={100}
-              height={100}
-              className="h-8 w-8 rounded-full md:h-10 md:w-10"
-            />
+    <div
+      className={`flex items-start gap-2 md:gap-3 ${reply && "gap-1 md:gap-2"}`}
+    >
+      <Image
+        src={comment.author.image}
+        alt={comment.author.name}
+        width={100}
+        height={100}
+        className={`rounded-full ${reply ? "h-6 w-6 md:h-7 md:w-7" : "h-8 w-8 md:h-10 md:w-10"}`}
+      />
 
-            <div className="flex flex-col gap-0.5">
-              <div className="flex items-center gap-1.5">
-                <span className="text-sm font-semibold">
-                  @{comment.author.name}
-                </span>
+      <div className={`card w-full rounded-none`}>
+        <div className="card-body gap-1.5 p-0">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-semibold">
+                @{comment.author.name}
+              </span>
 
-                <span className="text-xs text-base-content/60">
-                  {getTimeAgo(comment.createdAt)}
-                </span>
-              </div>
-              <span className="badge badge-neutral badge-sm text-[10px] font-semibold">
-                {comment.version.toUpperCase()}
+              <span className="text-xs text-base-content/60">
+                {getTimeAgo(comment.createdAt)}
               </span>
             </div>
+            <span className="badge badge-sm border-primary-content/80 text-[10px] font-semibold">
+              {comment.version.toUpperCase()}
+            </span>
           </div>
-        </div>
 
-        <div className={`text-sm md:text-base`}>{comment.text}</div>
+          <div className={`text-sm font-medium`}>{comment.text}</div>
 
-        <div className="flex flex-col gap-0.5">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center">
-              <button className="btn btn-circle btn-ghost btn-sm -ml-2.5">
-                <PiArrowFatUp size={18} />
-              </button>
-              <div className="text-sm">
-                {comment.upvotes.length - comment.downvotes.length}
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center">
+                <button className="btn btn-circle btn-ghost btn-sm -ml-2.5">
+                  <PiArrowFatUp size={17} />
+                </button>
+                <div className="text-sm">
+                  {comment.upvotes.length - comment.downvotes.length}
+                </div>
+                <button className="btn btn-circle btn-ghost btn-sm">
+                  <PiArrowFatDown size={17} />
+                </button>
               </div>
-              <button className="btn btn-circle btn-ghost btn-sm">
-                <PiArrowFatDown size={18} />
-              </button>
-            </div>
-            {signedIn && (
-              <>
-                <button className="btn btn-ghost btn-xs gap-1.5 px-2 font-normal md:btn-sm">
-                  <MdChatBubbleOutline size={16} /> Reply
-                </button>
-                <button className="btn btn-ghost btn-xs gap-1.5 px-2 font-normal md:btn-sm">
-                  <MdOutlineAddReaction size={16} /> React
-                </button>
-              </>
-            )}
-          </div>
-
-          {comment.replies.length > 0 && (
-            <button
-              className="btn btn-ghost btn-xs -ml-2 w-fit justify-start text-primary md:btn-sm md:-ml-3"
-              onClick={toggleReplies}
-            >
-              {showReplies ? (
-                <FaChevronUp size={10} />
-              ) : (
-                <FaChevronDown size={10} />
+              {signedIn && (
+                <>
+                  <button
+                    className="btn btn-ghost btn-xs gap-1.5 px-2 font-normal"
+                    onClick={() => setShowNewReply(true)}
+                  >
+                    Reply
+                  </button>
+                </>
               )}
-              <span className="flex items-center gap-1">
-                <>{comment.replies.length}</>
-                <span>{replyCount === 1 ? "reply" : "replies"}</span>
-              </span>
-            </button>
-          )}
+            </div>
+
+            {showNewReply && (
+              <div className="my-2">
+                <CommentForm
+                  profileImage={comment.author.image}
+                  newReplyTarget={comment.author.name}
+                  showNewReply={showNewReply}
+                  setShowNewReply={setShowNewReply}
+                />
+              </div>
+            )}
+
+            {comment.replies.length > 0 && (
+              <button
+                className="btn btn-ghost btn-xs -ml-2 w-fit justify-start text-primary md:btn-sm md:-ml-3"
+                onClick={toggleReplies}
+              >
+                {showReplies ? (
+                  <FaChevronUp size={10} />
+                ) : (
+                  <FaChevronDown size={10} />
+                )}
+                <span className="flex items-center gap-1">
+                  <>{comment.replies.length}</>
+                  <span>
+                    {comment.replies.length === 1 ? "reply" : "replies"}
+                  </span>
+                </span>
+              </button>
+            )}
+
+            {showReplies &&
+              comment.replies.map((reply, index) => (
+                <Comment
+                  key={index}
+                  comment={reply}
+                  reply={true}
+                  signedIn={true}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </div>

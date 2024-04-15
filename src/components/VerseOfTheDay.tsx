@@ -1,6 +1,6 @@
 "use client";
 
-import { merriweather } from "@/lib/fonts";
+// import { merriweather } from "@/lib/fonts";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaArrowRight, FaCopy, FaShare } from "react-icons/fa6";
@@ -84,18 +84,14 @@ const VerseOfTheDay = () =>
       <div className="flex flex-col gap-4">
         <div className="card w-full border">
           <div className="card-body p-4 md:p-8">
-            <h2
-              className={`${merriweather.className} text-base font-extrabold md:text-xl`}
-            >
+            <h2 className={`font-serif text-base font-extrabold md:text-xl`}>
               {verse.reference}
             </h2>
 
-            <p className={`${merriweather.className} text-xl md:text-3xl`}>
-              {verse.text}
-            </p>
+            <p className={`font-serif text-2xl md:text-3xl`}>{verse.text}</p>
 
             <select
-              className="select select-bordered select-sm mt-2 border-l-0 border-r-0 border-t-0"
+              className="select select-bordered select-sm mt-2 rounded-none border-l-0 border-r-0 border-t-0 px-1"
               value={translation}
               onChange={(e) => setTranslation(e.target.value)}
             >

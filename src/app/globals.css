@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.beforeReply::before {
+  content: "Add a reply...";
+}
+
+.beforeComment::before {
+  content: "Add a comment...";
+}
