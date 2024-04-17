@@ -41,36 +41,23 @@ const CommentForm = ({
   const [content, setContent] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      comment: `${newReplyTarget ? `@${newReplyTarget} ` : ""}`,
-    },
-    mode: "onChange",
-  });
-
   const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
     const newContent = e.currentTarget.textContent || "";
     setCharacterCount(newContent.trim().length);
     setContent(newContent);
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const handleSubmit = async () => {
     // const toastId = toast.loading("");
 
-    console.log(values);
+    console.log(content);
 
     // toast.error("Failed to commment", { id: toastId });
     // toast.success("Successfully commented", { id: toastId });
   };
 
   return (
-    <div className="flex w-full items-start gap-2">
+    <div className="flex w-full max-w-3xl items-start gap-2">
       <Image
         src={profileImage}
         alt={`commenter profile image`}
@@ -79,19 +66,16 @@ const CommentForm = ({
         className={`rounded-full ${showNewReply ? "h-6 w-6 md:h-7 md:w-7" : "h-8 w-8 md:h-10 md:w-10"}`}
       />
 
-      <form
-        className="flex w-full flex-col gap-2"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div
-          className={`h-auto w-full resize-none break-words border-b-2 border-base-300 pb-0.5 leading-relaxed focus:border-base-content focus:outline-none sm:text-sm ${characterCount === 0 ? (showNewReply ? "beforeReply text-base-content/40" : "beforeComment text-base-content/40") : ""}`}
-          contentEditable
-          {...register("comment")}
-          autoFocus={showNewReply || false}
-          onInput={handleInput}
-          dir="auto"
-          aria-label={`Add a reply...`}
-        />
+      <div className="flex flex-1 flex-col gap-2">
+        <div className="break-all">
+          <div
+            className={`h-auto w-full break-words rounded-btn border p-2 leading-relaxed antialiased focus:border-base-content/60 focus:outline-none sm:text-sm ${characterCount === 0 ? (showNewReply ? "beforeReply text-base-content/40" : "beforeComment text-base-content/40") : ""}`}
+            contentEditable={true}
+            autoFocus={showNewReply || false}
+            onInput={handleInput}
+            dir="auto"
+          />
+        </div>
         {/* {errors.comment && <span>{errors.comment.message}</span>} */}
 
         <div className="flex w-full items-center justify-between gap-2">
@@ -101,9 +85,22 @@ const CommentForm = ({
                 Gif <FaImage />
               </button>
             )}
-            <button type="button" className="btn btn-sm">
-              <FaRegSmile />
-            </button>
+            <div className="dropdown dropdown-bottom">
+              <div tabIndex={0} role="button" className="btn btn-sm">
+                <FaRegSmile />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu-horizontal z-[1] flex w-fit rounded-box bg-base-100 p-2 shadow"
+              >
+                <li>
+                  <button>Item 1</button>
+                </li>
+                <li>
+                  <button>Item 2</button>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
@@ -121,6 +118,7 @@ const CommentForm = ({
               disabled={
                 characterCount > MAXCHARACTERCOUNT || characterCount < 1
               }
+              onClick={handleSubmit}
             >
               Comment
             </button>
@@ -149,7 +147,7 @@ const CommentForm = ({
             )}
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

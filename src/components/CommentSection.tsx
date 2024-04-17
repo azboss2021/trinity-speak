@@ -1,8 +1,6 @@
-import { FaSort } from "react-icons/fa6";
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
 import SignInButton from "./SignInButton";
-import { MdSort } from "react-icons/md";
 
 const CommentSection = ({ signedIn }: { signedIn: boolean }) => {
   const commentCount = 52;
@@ -12,10 +10,10 @@ const CommentSection = ({ signedIn }: { signedIn: boolean }) => {
     <div className="flex flex-col gap-6">
       <div className="-mb-2 flex items-center justify-between pl-1">
         <span className="text-lg font-bold">52 Comments</span>
-        <select className="select select-ghost select-sm w-fit">
+        <select className="select select-bordered select-sm w-fit">
           <option disabled>Sort By</option>
-          <option>Newest first</option>
-          <option>Top comments</option>
+          <option>Newest First</option>
+          <option>Top Comments</option>
         </select>
       </div>
       {signedIn ? (

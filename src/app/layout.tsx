@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="lofi">
+    <html lang="en" data-theme="winter">
       <body>
         <Toaster />
         <div className="flex flex-col gap-4">

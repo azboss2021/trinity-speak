@@ -73,7 +73,7 @@ const Comment = ({
 
           <div className={`text-sm font-medium`}>{comment.text}</div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <div className="flex items-center">
                 <button className="btn btn-circle btn-ghost btn-sm -ml-2.5">
@@ -111,7 +111,7 @@ const Comment = ({
 
             {comment.replies.length > 0 && (
               <button
-                className="btn btn-ghost btn-xs -ml-2 w-fit justify-start text-primary md:btn-sm md:-ml-3"
+                className="btn btn-ghost btn-xs -ml-2 -mt-2 w-fit justify-start text-primary md:btn-sm md:-ml-3"
                 onClick={toggleReplies}
               >
                 {showReplies ? (
