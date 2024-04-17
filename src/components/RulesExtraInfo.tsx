@@ -1,6 +1,6 @@
 const RulesExtraInfo = () => {
   return (
-    <div role="alert" className="alert">
+    <div role="alert" className="alert -mb-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

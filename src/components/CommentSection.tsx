@@ -1,5 +1,6 @@
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
+import RulesExtraInfo from "./RulesExtraInfo";
 import SignInButton from "./SignInButton";
 
 const CommentSection = ({ signedIn }: { signedIn: boolean }) => {
@@ -16,8 +17,10 @@ const CommentSection = ({ signedIn }: { signedIn: boolean }) => {
           <option>Top Comments</option>
         </select>
       </div>
+
+      <RulesExtraInfo />
       {signedIn ? (
-        <CommentForm profileImage={profileImage} />
+        <CommentForm mainComment={true} profileImage={profileImage} />
       ) : (
         <SignInButton />
       )}

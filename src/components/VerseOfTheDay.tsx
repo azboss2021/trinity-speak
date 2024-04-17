@@ -62,7 +62,7 @@ const VerseOfTheDay = () =>
 
     if (!verse)
       return (
-        <div className="mx-auto flex w-full max-w-prose flex-col gap-4">
+        <div className="mx-auto flex w-full flex-col gap-4">
           <div className="card w-full border">
             <div className="card-body p-4 md:p-8">
               <div className="skeleton h-8 w-24" />
@@ -81,14 +81,14 @@ const VerseOfTheDay = () =>
       );
 
     return (
-      <div className="mx-auto flex w-full max-w-prose flex-col gap-4">
+      <div className="mx-auto flex w-full flex-col gap-4">
         <div className="card w-full border">
-          <div className="card-body p-4 md:p-8">
-            <h2 className={`font-serif text-base font-extrabold md:text-xl`}>
+          <div className="card-body gap-1 p-4 md:gap-2 md:p-8">
+            <h2 className={`font-serif text-lg font-bold md:text-2xl`}>
               {verse.reference}
             </h2>
 
-            <p className={`font-serif text-2xl md:text-3xl`}>{verse.text}</p>
+            <p className={`font-serif text-2xl md:text-4xl`}>{verse.text}</p>
 
             <select
               className="select select-bordered select-sm mt-2 rounded-none border-l-0 border-r-0 border-t-0 px-1"

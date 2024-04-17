@@ -29,10 +29,14 @@ const formSchema = z.object({
 
 const CommentForm = ({
   profileImage,
+  mainComment = false,
   setShowNewReply,
   showNewReply,
   newReplyTarget,
+  isReply = true,
 }: {
+  mainComment?: boolean;
+  isReply?: boolean;
   profileImage: string;
   newReplyTarget?: string;
   showNewReply?: boolean;
@@ -45,6 +49,11 @@ const CommentForm = ({
     const newContent = e.currentTarget.textContent || "";
     setCharacterCount(newContent.trim().length);
     setContent(newContent);
+  };
+
+  const handleAddEmoji = (emoji: string) => {
+    setCharacterCount((curr) => curr + 1);
+    setContent((curr) => curr + emoji);
   };
 
   const handleSubmit = async () => {
@@ -67,15 +76,14 @@ const CommentForm = ({
       />
 
       <div className="flex flex-1 flex-col gap-2">
-        <div className="break-all">
-          <div
-            className={`h-auto w-full break-words rounded-btn border p-2 leading-relaxed antialiased focus:border-base-content/60 focus:outline-none sm:text-sm ${characterCount === 0 ? (showNewReply ? "beforeReply text-base-content/40" : "beforeComment text-base-content/40") : ""}`}
-            contentEditable={true}
-            autoFocus={showNewReply || false}
-            onInput={handleInput}
-            dir="auto"
-          />
-        </div>
+        <div
+          className={`h-auto w-full whitespace-pre-wrap break-words rounded-btn border p-2 leading-relaxed antialiased focus:border-base-content/60 focus:outline-none sm:text-sm ${characterCount === 0 ? (showNewReply ? "beforeReply text-base-content/40" : "beforeComment text-base-content/40") : ""}`}
+          contentEditable={true}
+          autoFocus={showNewReply || false}
+          onInput={handleInput}
+          dir="auto"
+        />
+
         {/* {errors.comment && <span>{errors.comment.message}</span>} */}
 
         <div className="flex w-full items-center justify-between gap-2">
@@ -85,22 +93,52 @@ const CommentForm = ({
                 Gif <FaImage />
               </button>
             )}
-            <div className="dropdown dropdown-bottom">
+            {/* <div className="dropdown dropdown-bottom">
               <div tabIndex={0} role="button" className="btn btn-sm">
                 <FaRegSmile />
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu-horizontal z-[1] flex w-fit rounded-box bg-base-100 p-2 shadow"
+                className="dropdown-content z-[1] flex w-fit gap-2 rounded-box bg-base-100 p-2 shadow"
               >
-                <li>
-                  <button>Item 1</button>
-                </li>
-                <li>
-                  <button>Item 2</button>
-                </li>
+                <button
+                  className="btn btn-circle btn-ghost btn-sm"
+                  onClick={() => handleAddEmoji("❤️")}
+                >
+                  ❤️
+                </button>
+                <button
+                  className="btn btn-circle btn-ghost btn-sm"
+                  onClick={() => handleAddEmoji("😊")}
+                >
+                  😊
+                </button>
+                <button
+                  className="btn btn-circle btn-ghost btn-sm"
+                  onClick={() => handleAddEmoji("😢")}
+                >
+                  😢
+                </button>
+                <button
+                  className="btn btn-circle btn-ghost btn-sm"
+                  onClick={() => handleAddEmoji("🙏")}
+                >
+                  🙏
+                </button>
+                <button
+                  className="btn btn-circle btn-ghost btn-sm"
+                  onClick={() => handleAddEmoji("🐍")}
+                >
+                  🐍
+                </button>
+                <button
+                  className="btn btn-circle btn-ghost btn-sm"
+                  onClick={() => handleAddEmoji("✨")}
+                >
+                  ✨
+                </button>
               </ul>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex items-center gap-2">
