@@ -17,10 +17,11 @@ const CommentSection = ({ signedIn }: { signedIn: boolean }) => {
           <option>Top Comments</option>
         </select>
       </div>
-
-      <RulesExtraInfo />
       {signedIn ? (
-        <CommentForm mainComment={true} profileImage={profileImage} />
+        <>
+          <RulesExtraInfo />
+          <CommentForm mainComment={true} profileImage={profileImage} />
+        </>
       ) : (
         <SignInButton />
       )}
